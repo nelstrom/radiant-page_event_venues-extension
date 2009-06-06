@@ -1,23 +1,16 @@
-# Uncomment this if you reference any of your controllers in activate
-# require_dependency 'application'
-
 class PageEventVenuesExtension < Radiant::Extension
-  version "1.0"
-  description "Describe your extension here"
+  version "0.1"
+  description "Works with PageEvent and VenuePages extensions, adding an association between Events and Venues."
   url "http://yourwebsite.com/page_event_venues"
   
-  # define_routes do |map|
-  #   map.namespace :admin, :member => { :remove => :get } do |admin|
-  #     admin.resources :page_event_venues
-  #   end
-  # end
-  
   def activate
-    # admin.tabs.add "Page Event Venues", "/admin/page_event_venues", :after => "Layouts", :visibility => [:all]
+    raise "The page_event_venues extension requires the page_event extension be loaded first!" unless defined?(PageEvent)
+    raise "The page_event_venues extension requires the venue_page extension be loaded first!" unless defined?(VenuePage)
+    Page.send :include, EventPageExtensions
+    VenuePage.send :include, VenuePageExtensions
   end
   
   def deactivate
-    # admin.tabs.remove "Page Event Venues"
   end
   
 end
