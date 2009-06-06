@@ -1,0 +1,6 @@
+<% if @page.is_event? %>
+  <p>
+    <label for="page_venue_id">Venue</label>
+    <%= select "page", "venue_id", VenuePage.all.collect{ |v| [v.title, v.id] } %>
+  </p>
+<% end %>

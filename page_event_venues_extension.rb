@@ -9,7 +9,8 @@ class PageEventVenuesExtension < Radiant::Extension
 
     Page.class_eval      { include EventPageExtensions }
     VenuePage.class_eval { include VenuePageExtensions }
-    # VenuePage.send :include, VenuePageExtensions
+    
+    admin.page.edit.add :layout_row, "venue_select"
   end
   
   def deactivate
