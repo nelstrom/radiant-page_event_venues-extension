@@ -6,8 +6,10 @@ class PageEventVenuesExtension < Radiant::Extension
   def activate
     raise "The page_event_venues extension requires the page_event extension be loaded first!" unless defined?(PageEvent)
     raise "The page_event_venues extension requires the venue_page extension be loaded first!" unless defined?(VenuePage)
-    Page.send :include, EventPageExtensions
-    VenuePage.send :include, VenuePageExtensions
+
+    Page.class_eval      { include EventPageExtensions }
+    VenuePage.class_eval { include VenuePageExtensions }
+    # VenuePage.send :include, VenuePageExtensions
   end
   
   def deactivate
