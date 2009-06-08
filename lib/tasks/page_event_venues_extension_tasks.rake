@@ -22,7 +22,28 @@ namespace :radiant do
           mkdir_p RAILS_ROOT + directory
           cp file, RAILS_ROOT + path
         end
-      end  
+      end
+      
+      desc "Create associations between events and venues"
+      task :associate => :environment do
+        EventArchivePage.all.each do |event_index|
+          event_index.children.each do |event|
+            next if ["EventDayIndexPage", "EventMonthIndexPage", "EventYearIndexPage"].include?(event.class_name)
+            if venue_part = event.part("venue")
+              if venue_part.content =~ /venues\/([^\/^"]*)/
+                venue_slug = $1
+                if venue_page = VenuePage.find_by_slug(venue_slug)
+                  event.venue = venue_page
+                  event.save
+                else
+                  puts "  page for #{venue_slug} not found!"
+                end
+              end
+            end
+          end
+        end
+      end
+      
     end
   end
 end
