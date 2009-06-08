@@ -28,6 +28,12 @@ module EventPageExtensions
     end
   end
   
+  tag "event:date_as_slug" do |tag|
+    if start_at = tag.locals.page.event_datetime_start
+      start_at.strftime("%d-%B").downcase
+    end
+  end
+  
   desc %{
     Will output the current event's end time. The format attribute accepts the same 
     patterns as Ruby's @strftime@ function (default is @%I:%M %p@). 
