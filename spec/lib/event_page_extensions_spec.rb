@@ -29,6 +29,16 @@ describe "<r:event>" do
       as("7.30am")
   end
   
+  it "should show start and end times, when both provided" do
+    @training.should render("<r:event:lazy_start_and_end_times/>").
+      as("6.30am - 7.30am")
+  end
+  
+  it "should show start time only, when end time not provided" do
+    pages(:lunch).should render("<r:event:lazy_start_and_end_times/>").
+      as("12.30pm")
+  end
+  
   it "should change context to the venue." do
     @workday.should render("<r:event:venue><r:title/> - <r:street_address/></r:event:venue>").
       as("The Office - High st.")

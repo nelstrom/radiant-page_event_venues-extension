@@ -7,6 +7,9 @@ class Events < Dataset::Base
         :event_datetime_start => Time.local(2008,12,25,6,30).to_s(:db),
         :event_datetime_end   => Time.local(2008,12,25,7,30).to_s(:db)
     
+    create_page "lunch", 
+        :event_datetime_start => Time.local(2008,12,25,12,30).to_s(:db)
+    
     create_page "workday", 
         :event_datetime_start => Time.local(2009,5,1,9,0).to_s(:db),
         :event_datetime_end   => Time.local(2009,5,1,17,0).to_s(:db),
